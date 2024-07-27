@@ -5,7 +5,8 @@ import { createRoot } from "https://esm.sh/react-dom";
 import listData from "./data/list.js";
 
 // > 컴포넌트 불러오기
-import NumberList from "./components/NumberList.class.js";
+// import NumberList from "./components/NumberList.class.js";
+import NumberList from "./components/NumberList.function.js";
 import ArchitectureList from "./components/architectures/ArchitectureList.class.js";
 import ArchitectureItem from "./components/architectures/ArchitectureItem.class.js";
 
@@ -26,8 +27,10 @@ if (container) {
     ),
   });
 
+  const numberList = React.createElement(NumberList, { count: 9 });
+
   // > 리액트 앱 렌더링
-  reactDomRoot.render(architectureList);
+  reactDomRoot.render(numberList);
 } else {
   // > 존재하지 않는다면? 개발자에게 경고 출력
   alert('문서에 "#app" 요소가 존재하지 않습니다.');
