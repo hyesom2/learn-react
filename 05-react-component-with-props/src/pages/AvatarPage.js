@@ -14,6 +14,7 @@ function AvatarListPage() {
       React.createElement(Avatar, {
         name: "야무",
         photoURL: "man-01.jpg",
+        status: "online",
       })
     ),
     React.createElement(
@@ -22,6 +23,7 @@ function AvatarListPage() {
       React.createElement(Avatar, {
         name: "범쌤",
         photoURL: "man-02.jpg",
+        status: "away",
       })
     )
   );
