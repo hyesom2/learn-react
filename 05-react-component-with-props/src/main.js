@@ -1,6 +1,9 @@
 import React, { createElement as h } from "https://esm.sh/react";
 import { createRoot } from "https://esm.sh/react-dom";
 
+// > 컴포넌트 불러오기
+import NumberList from "./components/NumberList.js";
+
 const listData = {
   items: [
     { id: "1", title: "Climatology" },
@@ -13,52 +16,6 @@ const listData = {
 const container = document.getElementById("root-app");
 
 const reactDomRoot = createRoot(container); // * { render, unmount }
-
-// * 컴포넌트란? 재사용 메커니즘(클래스 또는 함수)을 사용해 리액트 엘리먼트를 반환하는 것을 말한다.
-
-// > 1. 리액트 클래스 컴포넌트 (재사용)
-// * h("ul", { className: "architectures", lang: "en" }, ...children); 를 클래스 컴포넌트로
-// > 리액트 컴포넌트는 반드시 파스칼케이스(PascalCase)
-class ArchitectureList extends React.Component {
-  constructor(props /* 컴포넌트 속성 */) {
-    // > 반드시 [ super ] 실행이 필요하다.
-    super(props);
-
-    // * 암묵적으로 클래스로 부터 실행된 인스턴스
-    // return this;
-  }
-
-  // > render 메서드 (인스턴스 공용)
-  render() {
-    // * 컴포넌트 속성(props) 접근
-    // * props는 읽기 전용(read only)
-    // console.log(this.props); // { id, count }
-
-    // * 컴포넌트의 자식들은 배열이다.
-    // const children = [101, 201, 301];
-    const children = Array(this.props.count)
-      .fill(null)
-      .map((_, index) => {
-        // return index;
-        return React.createElement("li", {}, `${index + 1}01`);
-      });
-
-    // * 리액트 엘리먼트 반환
-    return React.createElement(
-      "ul",
-      { className: "architectures", lang: "en", id: this.props.id },
-      // h("li", { className: "item" }, 101),
-      // h("li", { className: "item" }, 201),
-      // h("li", { className: "item" }, 301)
-      children
-    );
-  }
-}
-// > 리액트 월드에서 컴포넌트를 사용해 인스턴스(리액트 엘리먼트)를 생성하려면?
-// > React.createElement(컴포넌트_참조)
-const list1 = React.createElement(ArchitectureList, { id: "list-1", count: 3 });
-const list2 = h(ArchitectureList, { id: "list-2", count: 5 });
-const list3 = h(ArchitectureList, { id: "list-3", count: 11 });
 
 function render() {
   const children = listData.items.map(({ id, title /* 구조분해할당 */ }) => {
@@ -109,9 +66,12 @@ function render() {
     "div",
     { className: "list-container" },
     list,
-    list1,
-    list2,
-    list3
+    // list1,
+    // list2,
+    // list3
+    h(NumberList, { count: 3 }),
+    h(NumberList, { count: 5 }),
+    h(NumberList, { count: 7 })
   );
 
   reactDomRoot.render(listContainer);
