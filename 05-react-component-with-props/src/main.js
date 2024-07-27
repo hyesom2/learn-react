@@ -8,7 +8,9 @@ import listData from "./data/list.js";
 // import NumberList from "./components/NumberList.class.js";
 import NumberList from "./components/NumberList.function.js";
 import ArchitectureList from "./components/architectures/ArchitectureList.class.js";
+import ArchitectureListFunc from "./components/architectures/ArchitectureList.function.js";
 import ArchitectureItem from "./components/architectures/ArchitectureItem.class.js";
+import ArchitectureItemFunc from "./components/architectures/ArchitectureItem.function.js";
 
 // > 리액트 앱을 렌더링 할 DOM 요소 참조
 const container = document.getElementById("root-app");
@@ -29,8 +31,17 @@ if (container) {
 
   const numberList = React.createElement(NumberList, { count: 9 });
 
+  // > ArchitectureListFunc 컴포넌트 → 리액트 엘리먼트 생성
+  // > ArchitectureListFunc 컴포넌트에 속성(props) 전달
+  const architectureListFunc = React.createElement(ArchitectureListFunc, {
+    lang: "en",
+    children: listData.items.map(({ id, title }) =>
+      React.createElement(ArchitectureItemFunc, { id, title })
+    ),
+  });
+
   // > 리액트 앱 렌더링
-  reactDomRoot.render(numberList);
+  reactDomRoot.render(architectureListFunc);
 } else {
   // > 존재하지 않는다면? 개발자에게 경고 출력
   alert('문서에 "#app" 요소가 존재하지 않습니다.');
