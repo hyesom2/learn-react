@@ -1,0 +1,13 @@
+{
+  "private": true,
+  "type": "module",
+  "name": "homework",
+  "description": "야무쌤의 리액트 강의 과제",
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "node server.mjs"
+  },
+  "devDependencies": {
+    "live-server": "1.2.2"
+  }
+}
