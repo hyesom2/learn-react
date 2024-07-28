@@ -4,3 +4,4 @@
 
 ### 과제
 [1. 디자인 → 개발 핸드오프 과제 (2024-07-22)](https://github.com/hyesom2/learn-react/blob/lecture/02-design-handoff/README.md)
+[2. 1주차 - 아토믹 컴포넌트 과제 (2024-07-26)](https://github.com/hyesom2/learn-react/tree/lecture/00-homework)
