@@ -2,6 +2,7 @@ import '@/styles/main.css';
 // import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './learn/about-purity';
+import './learn/about-side-effects';
 // > components
 import App from './App';
 
