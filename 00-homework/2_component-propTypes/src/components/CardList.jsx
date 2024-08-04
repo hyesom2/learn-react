@@ -3,7 +3,7 @@ import '@/styles/card-list.css'
 // > components
 import Card from '@/components/Card';
 // > prop-types
-import { arrayOf } from 'prop-types';
+import { arrayOf } from "prop-types";
 import { products } from '@/@types/products.d';
 
 CardList.propTypes = {

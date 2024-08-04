@@ -26,6 +26,7 @@ import { number, string, exact } from "prop-types";
 export const products = exact(
   {
     id: number.isRequired,
+    delivery: string.isRequired,
     name: string.isRequired,
     desc: string.isRequired,
     imgURL: string.isRequired,
@@ -42,7 +43,7 @@ import '@/styles/card-list.css'
 // > components
 import Card from '@/components/Card';
 // > prop-types
-import { arrayOf } from 'prop-types';
+import { arrayOf } from "prop-types";
 import { products } from '@/@types/products.d';
 
 CardList.propTypes = {
@@ -80,9 +81,10 @@ import '@/styles/card.css';
 // > prop-types
 import { products } from '@/@types/products.d';
 Card.propTypes = {
-  products: products.isRequired
+  products: products
 };
 
+// function Card({ delivery, name, desc, imgURL, original_price, ratio }) {
 function Card(products) {
   const { delivery, name, desc, imgURL, original_price, ratio } = products;
 
@@ -100,7 +102,7 @@ function Card(products) {
           <span className="won">원</span>
         </div>
         <div className="price-discount">
-          <strong className="price-ratio">{ratio}%</strong>
+          <strong className="price-ratio">{ratio ? ratio + '%' : null}</strong>
           <strong className="price-sales">
             <span className="price-number">
               {`${original_price}` - `${original_price}` * `${ratio / 100}`}

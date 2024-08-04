@@ -3,7 +3,7 @@ import '@/styles/card.css';
 // > prop-types
 import { products } from '@/@types/products.d';
 Card.propTypes = {
-  products: products.isRequired
+  products: products
 };
 
 // function Card({ delivery, name, desc, imgURL, original_price, ratio }) {
@@ -24,7 +24,7 @@ function Card(products) {
           <span className="won">원</span>
         </div>
         <div className="price-discount">
-          <strong className="price-ratio">{ratio}%</strong>
+          <strong className="price-ratio">{ratio ? ratio + '%' : null}</strong>
           <strong className="price-sales">
             <span className="price-number">
               {`${original_price}` - `${original_price}` * `${ratio / 100}`}
