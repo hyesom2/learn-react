@@ -1,14 +1,16 @@
 import '@/styles/main.css';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import AvatarListPage from '@/pages/AvatarListPage';
+// > components
+// import AvatarListPage from '@/pages/AvatarListPage';
+import Playground from '@/Playground';
 
 const container = document.getElementById('react-app');
 
 if (container) {
   createRoot(container).render(
     <StrictMode>
-      <AvatarListPage />
+      <Playground />
     </StrictMode>
   );
 } else {
