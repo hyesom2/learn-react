@@ -1,3 +1,7 @@
 .TermAndConditions {
   margin-inline: 40px;
+
+  button {
+    margin-block-start: 20px;
+  }
 }
