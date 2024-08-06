@@ -6,7 +6,7 @@ function Playground() {
     <>
       <TermAndConditions />
     </>
-  )
+  );
 }
 
 export default Playground;
