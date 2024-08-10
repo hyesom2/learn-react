@@ -1,0 +1,9 @@
+.UserSearchBox {
+  display: flex;
+  gap: 8px;
+
+  .control {
+    display: flex;
+    gap: 4px;
+  }
+}

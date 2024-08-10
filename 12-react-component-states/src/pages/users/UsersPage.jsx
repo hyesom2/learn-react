@@ -7,7 +7,7 @@
 // - [ ] 사용자 정보 검색 시, 검색된 데이터만 사용자 목록 업데이트
 // - [ ] 사용자 정보 검색 시, 검색 정보 업데이트
 // --------------------------------------------------------------------------
-
+// > react hook
 import { useState } from 'react';
 
 // > components
@@ -30,7 +30,10 @@ function UsersPage() {
   return (
     // ②
     <div className="UsersPage">
-      <UserSearchBox />
+      {/* <UserSearchBox id="box1" />
+      <UserSearchBox id="box2" /> */}
+      <UserSearchBox /> {/* useId로  id값을 안넘겨줘도 id로 구분 가능 */}
+      {/* <UserSearchBox /> */}
       <UsersList users={users} /> {/* ③ */}
       <UserListCount />
     </div>
