@@ -37,9 +37,12 @@ function UserSearchBox() {
         <label htmlFor={ id }>사용자 검색</label>
         <input 
           id={ id } 
-          type="search" 
-          placeholder="사용자 이름 입력" 
-          onChange={ handleChange }
+          type="search"
+          placeholder="사용자 이름 입력"
+          // readOnly
+          // value={ searchTerm }
+          defaultValue={ searchTerm } // * 처음에만 리액트의 상태값을 넣고 싶을 때
+          // onChange={ handleChange }
         />
       </div>
       <button type="button" onClick={ handleSearch }>찾기</button>
