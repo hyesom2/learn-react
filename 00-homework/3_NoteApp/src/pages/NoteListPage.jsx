@@ -1,18 +1,18 @@
-import { useState } from 'react';
-import { getNoteList } from '../api/getNote';
 import NoteList from '../components/NoteList';
 import './NoteListPage.css';
 
 // > prop-types
 import { func } from "prop-types";
 import { ROUTES } from '@/constants/routes';
+import { NoteListType } from '@/types/note';
 NoteListPage.propTypes = {
-  onChangeRoute: func.isRequired
+  list: NoteListType.isRequired,
+  onChangeRoute: func.isRequired,
 }
 
-function NoteListPage({ onChangeRoute }) {
-  // * 화면에 표시할 노트의 목록 상태
-  const [list] = useState(() => getNoteList());
+function NoteListPage({ list, onChangeRoute }) {
+  // * 화면에 표시할 노트의 목록 상태 (App.jsx로 끌어올림)
+  // const [list] = useState(() => getNoteList());
 
   const handleClick = (e) => {
     e.preventDefault();

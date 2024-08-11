@@ -8,12 +8,16 @@
 // - [ ] 노트 삭제 (Delete)
 // --------------------------------------------------------------------------
 
+// > hooks
 import { useState } from "react";
 import { ROUTES } from "./constants/routes";
+// > components
 import NoteListPage from "./pages/NoteListPage";
 import NoteCreatePage from "./pages/NoteCreatePage";
 import NoteDetailPage from "./pages/NoteDetailPage";
 import NoteEditPage from "./pages/NoteEditPage";
+// > 
+import { getNoteList } from './api/getNote';
 
 function NoteApp() {
   // > 상태 선언
@@ -22,6 +26,8 @@ function NoteApp() {
     route: ROUTES.list, // * 화면에 표시할 페이지 루트(경로) 식별자
     noteId: null, // * default값: null, 선택된 노트의 ID (노트 자세히 보기 페이지, 노트 수정 페이지)
   });
+
+  const [list, setList] = useState(() => getNoteList()); // * array타입
 
   // > 상태 업데이트 기능
   const handleChangeRoute = (nextRoute) => {
@@ -32,14 +38,35 @@ function NoteApp() {
       route: nextRoute,
     });
   };
+  
+  // > 노트 생성 기능
+  const handleCreateNote = (newNoteItem) => {
+    setList([
+      ...list,
+      newNoteItem,
+    ]);
+  }
+
+  // > 노트 수정 기능
+
+  // > 노트 삭제 기능
+
+  // > 파생된 상태
+  const nextNoteId = list.length + 1;
 
   // * 페이지 경로에 따라 페이지 마크업(JSX) 반환
   switch (routeInfo.route) {
     default:
     case ROUTES.list:
-      return <NoteListPage onChangeRoute={handleChangeRoute} />;
+      return <NoteListPage list={list} onChangeRoute={handleChangeRoute} />;
     case ROUTES.create:
-      return <NoteCreatePage onChangeRoute={handleChangeRoute} />;
+      return (
+        <NoteCreatePage
+          onChangeRoute={handleChangeRoute}
+          onCreate={handleCreateNote}
+          nextNoteId={nextNoteId}
+        />
+      );
     case ROUTES.detail:
       return <NoteDetailPage noteId={routeInfo.noteId} />;
     case ROUTES.edit:
