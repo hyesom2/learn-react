@@ -1,12 +1,15 @@
-import { useId } from 'react';
-import { oneOf } from 'prop-types';
-import { getUserList } from '../api/getUser';
+// > hooks
+import { useId, useState } from 'react';
+// > css
 import './NoteForm.css';
-import { NoteType } from '../types/note';
+import { getUserList } from '../api/getUser';
 import { convertHTMLToText } from '@/utils/convertTextToHTMLString';
 
-const userList = getUserList();
+const userList = getUserList(); // > 데이터를 1회 가져오도록 설정
 
+// > prop-types
+import { oneOf } from "prop-types";
+import { NoteType } from '../types/note';
 NoteForm.propTypes = {
   mode: oneOf(['create', 'edit']),
   note: NoteType,
@@ -17,44 +20,92 @@ function NoteForm({ mode = 'create', note }) {
   const contentId = useId();
   const userId = useId();
 
-  const handleSubmit = (e) => {
+  // > 상태 선언 (form의 상태(제목, 내용, 작성자) → 묶어서(객체로 관리) or 따로 개별로(각 데이터 타입으로 관리))
+  const [formData, setFormData] = useState({
+    title: '',
+    content: '',
+    userId: 0
+  });
+  // console.log(formData);
+
+  // > 상태 업데이트 기능 (제목, 내용, 유저정보를 하나의 핸들러를 사용해 업데이트 수행)
+  const handleUpdateFormData = (e) => {
+    const { name, value } = e.target;
+    // console.log({ name, value });
+
+    const nextFormData = {
+      ...formData,
+      [name]: value,
+    };
+
+    setFormData(nextFormData);
+  }
+
+  // > 노트 생성 기능
+  const handleSubmit  = (e) => {
     e.preventDefault();
+
+    /*
+      > 폼의 데이터 관리 방식 선택
+      * [x] 리액트로 관리할 것인가? (객체 타입으로 관리: 성능 이슈 주의!)
+      * [ ] 네이티브(웹)로 관리할 것인가? (성능 이슈 X)
+    */
   };
 
+  // > 노트 초기화 기능
   const handleReset = (e) => {
     e.preventDefault();
   };
 
+  // > 노트 삭제 기능
   const handleDelete = () => {
     console.log('delete');
   };
 
+  // > [파생된 상태] : "생성" or "수정" 모드 여부 확인
   const isCreateMode = mode.includes('create');
+  // > "생성" or "수정" 모드에 따라 화면에 표시될 버튼 레이블 설정
   const submitButtonLabel = isCreateMode ? '추가' : '수정';
 
-  if (note) {
-    note.content;
-  }
+  // > 
+  // if (note) {
+  //   note.content;
+  // }
 
   return (
     <form className="NoteForm" onSubmit={handleSubmit} onReset={handleReset}>
       <div className="formControl">
         <label htmlFor={titleId}>제목</label>
-        <input type="text" id={titleId} defaultValue={note?.title} />
+        {/* <input type="text" id={titleId} defaultValue={note?.title} /> */}
+        <input
+          type="text"
+          id={titleId}
+          value={formData.title}
+          onChange={handleUpdateFormData}
+          name="title"
+        />
       </div>
 
       <div className="formControl">
         <label htmlFor={contentId}>내용</label>
         <textarea
           id={contentId}
-          defaultValue={note && convertHTMLToText(note.content)}
+          /* defaultValue={note && convertHTMLToText(note.content)} */
+          value={formData.content}
+          onChange={handleUpdateFormData}
+          name="content"
         />
       </div>
 
       {isCreateMode && (
         <div className="formControl">
           <label htmlFor={userId}>작성자</label>
-          <select id={userId}>
+          <select
+            id={userId}
+            value={formData.userId}
+            onChange={handleUpdateFormData}
+            name="userId"
+          >
             <option>작성자 선택</option>
             {userList.map((user) => (
               <option key={user.id} value={user.id}>
