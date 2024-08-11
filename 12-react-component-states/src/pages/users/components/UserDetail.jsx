@@ -12,6 +12,7 @@ function UserDetail({ user }) {
       <span>
         { <a href={`mailto: ${user.email}`} style={{ color: '#fff', textDecoration: 'none'}}>({user.email})</a> }
       </span>
+      <span>({user.city})</span>
     </li>
   );
 }
