@@ -1,51 +1,62 @@
 // > react hook
-import { useId, useState } from 'react';
+// import { useId, useState } from 'react';
+import { useId } from 'react';
 
 // > css
 import './UserSearchBox.css';
 
 // > prop-types
-import { string } from 'prop-types';
+import { string, func } from 'prop-types';
 
 UserSearchBox.propTypes = {
-  id: string.isRequired
-}
+  // id: string.isRequired,
+  searchTerm: string.isRequired,
+  onSearch: func, // optional
+};
 
 // function UserSearchBox({ id }) {
-function UserSearchBox() {
+function UserSearchBox({ searchTerm, onSearch }) {
   const id = useId();
 
   // let searchTerm = '';
-  const [searchTerm, setSearchTerm] = useState('');
+  // const [searchTerm, setSearchTerm] = useState('');
 
-  const handleChange = (e) => {
-    // const searchTerm = e.target.value; → 밖으로 빼야 handleChange와 handleSearch 둘 다 사용 가능
-    // searchTerm = e.target.value;
-    setSearchTerm(e.target.value); 
-    console.log({ searchTerm });
-  };
+  // const handleChange = (e) => {
+  //   // const searchTerm = e.target.value; → 밖으로 빼야 handleChange와 handleSearch 둘 다 사용 가능
+  //   // searchTerm = e.target.value;
+  //   setSearchTerm(e.target.value);
+  //   console.log({ searchTerm });
+  // };
 
   const handleSearch = () => {
+    // > Side Effects code → DOM 접근, 속성값 읽기
+    const input = document.getElementById(id);
+    const value = input.value.trim(); // trim : 양쪽공백제거
 
-  }
-  
+    if (value.length > 0) {
+      onSearch?.(value);
+    }
+  };
+
   return (
     <div className="UserSearchBox">
       <div className="control">
         {/* <label htmlFor="user-search">사용자 검색</label>
         <input id="user-search" type="search" placeholder="사용자 이름 입력" /> */}
-        <label htmlFor={ id }>사용자 검색</label>
-        <input 
-          id={ id } 
+        <label htmlFor={id}>사용자 검색</label>
+        <input
+          id={id}
           type="search"
           placeholder="사용자 이름 입력"
           // readOnly
           // value={ searchTerm }
-          defaultValue={ searchTerm } // * 처음에만 리액트의 상태값을 넣고 싶을 때
-          // onChange={ handleChange }
+          defaultValue={searchTerm} // * 처음에만 리액트의 상태값을 넣고 싶을 때
+          // onChange={handleChange}
         />
       </div>
-      <button type="button" onClick={ handleSearch }>찾기</button>
+      <button type="button" onClick={handleSearch}>
+        찾기
+      </button>
     </div>
   );
 }

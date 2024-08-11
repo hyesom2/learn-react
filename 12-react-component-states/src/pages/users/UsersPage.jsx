@@ -27,13 +27,21 @@ function UsersPage() {
   // * 수정할 수 있는 포함 가능한 로직
   // * 상태를 쓰기(C)/읽기(R)/수정(U)/삭제(D) → 오직 이 컴포넌트 내부에서만 가능 (리액트에 변경 요청)
 
+
+  // > UserSearchBox의 값 리프팅
+  const [searchTerm, setSearchTerm] = useState('');
+  const handleSearch = (userInput) => {
+    console.log('clicked button');
+    setSearchTerm(userInput);
+  };
+
   return (
     // ②
     <div className="UsersPage">
       {/* <UserSearchBox id="box1" />
       <UserSearchBox id="box2" /> */}
-      <UserSearchBox /> {/* useId로  id값을 안넘겨줘도 id로 구분 가능 */}
-      {/* <UserSearchBox /> */}
+      <UserSearchBox searchTerm={searchTerm} onSearch={handleSearch} />{' '}
+      {/* useId로  id값을 안넘겨줘도 id로 구분 가능 */}
       <UsersList users={users} /> {/* ③ */}
       <UserListCount />
     </div>
