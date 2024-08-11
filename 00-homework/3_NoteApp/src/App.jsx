@@ -2,8 +2,8 @@
 // ✅ 노트 앱 (with React)
 // --------------------------------------------------------------------------
 // - [x] 노트 앱, 세부 구성 해설
-// - [ ] 노트 생성 (Create)
-// - [ ] 노트 리스트 또는 아이템 읽기 (Read)
+// - [x] 노트 생성 (Create)
+// - [x] 노트 리스트 또는 아이템 읽기 (Read)
 // - [ ] 노트 수정 (Update)
 // - [ ] 노트 삭제 (Delete)
 // --------------------------------------------------------------------------
@@ -30,12 +30,13 @@ function NoteApp() {
   const [list, setList] = useState(() => getNoteList()); // * array타입
 
   // > 상태 업데이트 기능
-  const handleChangeRoute = (nextRoute) => {
+  const handleChangeRoute = (nextRoute, pickNoteId) => {
     // * useState hook에서 반환된 상태 업데이트 함수는 상태를 교체한다(합성X)
     // * 객체 또는 배열 타입의 데이터를 상태로 관리할 경우 개발자가 직접 객체를 합성해야한다.
     setRouteInfo({
       ...routeInfo,
       route: nextRoute,
+      noteId: pickNoteId ? pickNoteId : routeInfo.noteId
     });
   };
   
