@@ -7,13 +7,14 @@ import MotionOneTimeline from './motion-one-timeline';
 import MotionOneInView from './motion-one-in-view';
 import MotionOneScroll from './motion-one-in-scroll';
 import MotionOneStagger from './motion-one-stagger';
+import UsingImperativeHandle from './using-imperative-handle';
 
 // > 경로에 대한 집합 → 어떤 경로에 어떤 컴포넌트를 렌더링 할 것인가를 설정
 const routes = [
   {
     title: '리액트로 만드는 싱글 페이지 어플리케이션',
     path: '/',
-    element: <Home />/* 페이지 컴포넌트 */
+    element: <Home /> /* 페이지 컴포넌트 */,
   },
   // * Route Object { title, path, element }
   {
@@ -25,6 +26,11 @@ const routes = [
     title: 'DOM 노드 접근/조작',
     path: '/dom-node-access-and-manipulation',
     element: <DOMNodeAccessAndManipulation />,
+  },
+  {
+    title: '명령형 핸들 노출',
+    path: '/using-imperative-handle',
+    element: <UsingImperativeHandle />,
   },
   {
     title: '모션원 animate()',
