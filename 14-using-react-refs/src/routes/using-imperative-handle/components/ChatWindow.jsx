@@ -1,15 +1,45 @@
-import { useId } from 'react';
+// > hooks
+import { useId, useRef } from 'react';
+// > css
 import S from './ChatWindow.module.css';
+// > prop-types
+import { exact, string, bool, func, arrayOf } from 'prop-types';
+const MessageType = exact({
+  id: string.isRequired,
+  message: string.isRequired,
+  isMe: bool.isRequired,
+});
+const MessageListType = arrayOf(MessageType);
+ChatWindow.propTypes = {
+  messages: MessageListType,
+  onAddMessage: func
+};
 
-function ChatWindow() {
+function ChatWindow({ messages, onAddMessage }) {
   const id = useId();
+  const textareaRef = useRef(null);
+
+  const handleSendMessage = (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.currentTarget);
+    let newMessage = formData.get('message');
+    newMessage = newMessage.trim();
+
+    if(newMessage.length <= 0){
+      alert('메세지 내용을 입력해주세요.');
+      textareaRef.current.select();
+    }
+
+    onAddMessage?.(newMessage)
+  }
 
   return (
     <section className={S.component}>
       <h2 className="sr-only">채팅 화면</h2>
 
       <ol className={S.chats}>
-        <li className={S.chat}>
+        {/* <li className={S.chat}>
           오늘 저녁에 뭐 먹을까?
         </li>
         <li className={`${S.chat} ${S.me}`}>
@@ -32,15 +62,25 @@ function ChatWindow() {
         </li>
         <li className={`${S.chat} ${S.me}`}>
           좋아! 좀 있다 사가정역 2번 출구에서 만나~ 😃 
-        </li>
+        </li> */}
+        {
+          messages.map(({ id, message, isMe }) => {
+            const classNames = `${S.chat} ${isMe ? S.me : ''}`.trim();
+            return (
+              <li key={id} className={classNames}>
+                {message}
+              </li>
+            );
+          })
+        }
       </ol>
 
-      <form className={S.form}>
+      <form className={S.form} onSubmit={handleSendMessage}>
         <div className={S.messageBox}>
           <label htmlFor={id} className="sr-only">
             메시지 입력
           </label>
-          <textarea id={id} />
+          <textarea id={id} name="message" ref={textareaRef} />
         </div>
         <button type="submit">보내기</button>
       </form>
