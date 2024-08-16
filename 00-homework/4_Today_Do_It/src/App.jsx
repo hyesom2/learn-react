@@ -1,7 +1,16 @@
+// > hooks
+import { useState } from 'react';
+// > css
+import styles from './App.module.css';
+// > components
+import Logo from '@/components/atoms/Logo/Logo';
+
 function App() {
+  const [mode] = useState(false);
+
   return (
-    <div className="app">
-      안녕하세요
+    <div className={`${styles.container}`}>
+      <Logo mode={mode} />
     </div>
   );
 }
