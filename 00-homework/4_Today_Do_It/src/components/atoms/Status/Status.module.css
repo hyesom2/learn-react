@@ -1,0 +1,35 @@
+.statusList {
+  display: flex;
+
+  li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+
+    span {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      width: 16px;
+      height: 18px;
+      background-color: var(--text); 
+      font-size: 12px;
+      font-weight: 700;
+      padding: 2px 4px;
+      color: var(--white);
+      border-radius: 4px;
+      margin-left: 4px;
+    }
+
+    &.is_active {
+      color: var(--main);
+
+      span {
+        background-color: var(--main);
+      }
+    }
+  }
+}
