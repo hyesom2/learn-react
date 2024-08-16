@@ -2,7 +2,9 @@
 // ✅ 백엔드 환경과 리액트 앱 동기화
 // --------------------------------------------------------------------------
 
+// > 데이터 가져오기
 import DataFetching from './components/DataFetching';
+// > 데이터 수정하기
 import DataMutation from './components/DataMutation';
 
 function SyncBackend() {
