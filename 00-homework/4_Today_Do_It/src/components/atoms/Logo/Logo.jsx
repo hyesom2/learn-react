@@ -1,4 +1,10 @@
+// > css
 import styles from './Logo.module.css';
+// > prop-types
+import { bool } from 'prop-types';
+Logo.propTypes = {
+  mode: bool
+}
 
 function Logo({ mode }) {
   return (
