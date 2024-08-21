@@ -1,5 +1,7 @@
 // > routes
 import { ROUTES } from '@/constants/routes';
+// > utils
+import { convertSlug } from '@/utils/convertSlug';
 // > css
 import './NoteList.css';
 // > prop-types
@@ -20,7 +22,8 @@ function NoteList({ list, onChangeRoute }) {
       <h2>노트 필기 목록</h2>
       <ul>
         {list.map((item) => {
-          const slug = `#${item.title.replace(/\s+/g, "-")}`;
+          // const slug = `#${item.title.replace(/\s+/g, "-")}`;
+          const slug = `#${convertSlug(item.title)}`;
 
           return (
             <li key={item.id}>

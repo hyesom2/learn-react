@@ -15,25 +15,48 @@ NoteForm.propTypes = {
   note: NoteType,
   onCreate: func,
   handleGoApp: func,
-  nextNoteId: number
+  nextNoteId: number,
+  onEdit: func
 };
 
 function NoteForm({
   mode = "create",
   note,
   onCreate,
+  onEdit,
   handleGoApp,
-  nextNoteId,
+  nextNoteId
 }) {
   const titleId = useId();
   const contentId = useId();
   const userId = useId();
 
   // > 상태 선언 (form의 상태(제목, 내용, 작성자) → 묶어서(객체로 관리) or 따로 개별로(각 데이터 타입으로 관리))
-  const [formData, setFormData] = useState({
-    title: "",
-    content: "",
-    userId: 0,
+  // const [formData, setFormData] = useState({
+  //   title: '',
+  //   contnet: '',
+  //   userId: 0
+  // });
+  const [formData, setFormData] = useState(() => {
+    // > 초기화 함수 실행
+    // * 노트 생성 모드인 경우
+    if(mode === 'create') {
+      return {
+        title: "",
+        content: "",
+        userId: 0,
+      }
+    }
+    // * 노트 편집 모드인 경우
+    if (mode === 'edit' && note) {
+      return {
+        title: note.title,
+        content: convertHTMLToText(note.content),
+        userId: note.userId
+      }
+    } else {
+      throw new Error('노트(note) 데이터가 존재하지 않습니다.');
+    }
   });
   // console.log(formData);
 
@@ -56,7 +79,7 @@ function NoteForm({
   };
 
   // > 노트 생성 기능
-  const handleSubmit = (e) => {
+  const handleCreateNote = (e) => {
     e.preventDefault();
 
     // > 유효성 검사(클라이언트 측)
@@ -82,6 +105,18 @@ function NoteForm({
     handleGoApp?.(); // * 상태 업데이트 후 리스트 페이지로 이동
   };
 
+  // > 노트 수정 기능
+  const handleEditNote = (e) => {
+    e.preventDefault();
+    // console.log('수정');
+    const willEditNote = {
+      ...note,
+      ...formData
+    };
+    onEdit?.(willEditNote);
+    handleGoApp?.();
+  }
+
   // > 노트 초기화 기능
   const handleReset = (e) => {
     e.preventDefault();
@@ -96,6 +131,8 @@ function NoteForm({
   const isCreateMode = mode.includes("create");
   // > "생성" or "수정" 모드에 따라 화면에 표시될 버튼 레이블 설정
   const submitButtonLabel = isCreateMode ? "추가" : "수정";
+
+  const handleSubmit = isCreateMode ? handleCreateNote : handleEditNote;
 
   // >
   // if (note) {
